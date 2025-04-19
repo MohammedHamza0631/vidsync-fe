@@ -170,7 +170,9 @@ export default function RoomPage() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers]     = useState([]);
   const playerRef            = useRef(null);
+  const playerInstanceRef    = useRef(null); // Store actual YT player instance
   const socketRef            = useRef(null);
+  const isSyncing            = useRef(false); // Flag for sync operations
 
   // 1️⃣ Fetch the room’s videoId (with retry)
   useEffect(() => {
@@ -211,9 +213,17 @@ export default function RoomPage() {
       if (playerRef.current) return;
       playerRef.current = new window.YT.Player('yt-player', {
         videoId,
+        playerVars: {
+          autoplay: 0,
+          controls: 1,
+          modestbranding: 1,
+          rel: 0,
+        },
         events: {
-          onReady: () => {
-            // nothing else here
+          onReady: (event) => {
+            // Store player instance for direct access to player methods
+            playerInstanceRef.current = event.target;
+            console.log('YouTube player ready');
           },
           onStateChange: onPlayerStateChange,
         },
@@ -240,11 +250,29 @@ export default function RoomPage() {
     socket.emit('join-room', { roomId });
 
     socket.on('video-state', (state) => {
-      if (playerRef.current) {
-        playerRef.current.seekTo(state.currentTime, true);
-        state.playing
-          ? playerRef.current.playVideo()
-          : playerRef.current.pauseVideo();
+      if (playerInstanceRef.current) {
+        // Mark that we're making changes due to sync (not user action)
+        isSyncing.current = true;
+        console.log('Received state:', state);
+        
+        try {
+          // Always seek first
+          playerInstanceRef.current.seekTo(state.currentTime, true);
+          
+          // Then play or pause as needed
+          if (state.playing) {
+            playerInstanceRef.current.playVideo();
+          } else {
+            playerInstanceRef.current.pauseVideo();
+          }
+        } catch (err) {
+          console.error('Error syncing video:', err);
+        }
+        
+        // Release sync lock after a reasonable delay to avoid feedback
+        setTimeout(() => {
+          isSyncing.current = false;
+        }, 500); // Longer timeout to ensure state is stable
       }
     });
 
@@ -263,17 +291,30 @@ export default function RoomPage() {
     };
   }, [videoId]);  // <-- <-- only depends on videoId now
 
-  // 4️⃣ Emit state changes
+  // 4️⃣ Emit state changes (but only if user-initiated)
   function onPlayerStateChange(event) {
-    if (!socketRef.current || !playerRef.current) return;
-
-    const state = playerRef.current.getPlayerState();
-    const currentTime = playerRef.current.getCurrentTime();
-
-    socketRef.current.emit('video-state-change', {
-      playing: state === window.YT.PlayerState.PLAYING,
-      currentTime,
-    });
+    if (!socketRef.current || !playerInstanceRef.current) return;
+    
+    // If we're currently syncing from a remote event, don't emit again (breaks the loop)
+    if (isSyncing.current) {
+      console.log('Ignoring state change during sync');
+      return;
+    }
+    
+    // Get current state and time from the event target
+    const state = event.data; // YouTube player states are available as event.data
+    const currentTime = playerInstanceRef.current.getCurrentTime();
+    
+    console.log('Local state change:', state);
+    
+    // Only emit state changes for play/pause events
+    if (state === window.YT.PlayerState.PLAYING || state === window.YT.PlayerState.PAUSED) {
+      console.log('Emitting state change');
+      socketRef.current.emit('video-state-change', {
+        playing: state === window.YT.PlayerState.PLAYING,
+        currentTime,
+      });
+    }
   }
 
   // 5️⃣ Render states
