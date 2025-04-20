@@ -8,9 +8,8 @@ export function TubelightNavbar({ className }) {
   const navLinks = [
     {name: "Home", href: "/"},
     { name: "Features", href: "#features" },
-    { name: "How It Works", href: "#how-it-works" },
     { name: "FAQ", href: "#faq" },
-    // { name: "Create Room", href: "/create-room", isButton: true }
+
   ];
 
   const [activeTab, setActiveTab] = useState(navLinks[0].name)
