@@ -4,8 +4,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Navbar } from "@/components/ui/navbar";
-import { Footer } from "@/components/ui/footer";
+
 import { ArrowRight, Play, Users, Clock, Zap, Lock, Plus, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
@@ -177,7 +176,7 @@ export default function Home() {
                   src="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?auto=format&fit=crop&w=800&q=80"
                   alt="People watching videos together"
                   className="object-cover"
-                  width={800}
+                  width={600}
                   height={450}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-80"></div>
@@ -358,7 +357,6 @@ export default function Home() {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 }

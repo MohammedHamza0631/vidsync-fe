@@ -4,8 +4,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Navbar } from '@/components/ui/navbar';
-import { Footer } from '@/components/ui/footer';
+
+
 import { extractYouTubeId } from '@/utils/validateYouTube';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -46,8 +46,6 @@ export default function CreateRoomPage() {
 
   return (
     <div className="bg-zinc-950 text-white min-h-screen">
-      <Navbar />
-
       <main className="container mx-auto px-4 py-16 min-h-[85vh] flex flex-col items-center justify-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -108,8 +106,6 @@ export default function CreateRoomPage() {
           </div>
         </motion.div>
       </main>
-      
-      <Footer />
     </div>
   );
 }

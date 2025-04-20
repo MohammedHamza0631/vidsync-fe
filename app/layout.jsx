@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { Navbar } from "@/components/ui/navbar";
+import { TubelightNavbar } from "@/components/ui/tubelight-navbar";
+import { Footer } from '@/components/ui/footer';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,10 +22,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-950 text-white min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-950 text-white min-h-screen pt-24`}
       >
-        <Navbar />
+        <TubelightNavbar />
         {children}
+        <Footer/>
       </body>
     </html>
   );

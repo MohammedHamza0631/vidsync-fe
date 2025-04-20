@@ -4,7 +4,6 @@ import { useParams, useRouter } from 'next/navigation';
 import io from 'socket.io-client';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Navbar } from '@/components/ui/navbar';
 import { Copy, LogOut, Users } from 'lucide-react';
 
 const SOCKET_URL = 'http://localhost:4000';
@@ -181,9 +180,7 @@ export default function RoomPage() {
   if (!videoId) return <div className="h-screen flex items-center justify-center">Room not found.</div>;
 
   return (
-    <div className="bg-zinc-950 text-white min-h-screen flex flex-col">
-      <Navbar />
-      
+    <div className="bg-zinc-950 text-white min-h-screen flex flex-col">      
       <main id="main-content" role="main" className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center justify-center" tabIndex="-1">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
