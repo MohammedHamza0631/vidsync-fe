@@ -2,7 +2,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import io from 'socket.io-client';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { Navbar } from '@/components/ui/navbar';
+import { Copy, LogOut, Users } from 'lucide-react';
 
 const SOCKET_URL = 'http://localhost:4000';
 
@@ -178,39 +181,79 @@ export default function RoomPage() {
   if (!videoId) return <div className="h-screen flex items-center justify-center">Room not found.</div>;
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-background px-4 py-8">
-      <div className="w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-lg shadow-lg p-4 flex flex-col gap-4">
-        <div className="flex justify-between items-center">
-          <div>
-            <span className="text-sm text-muted-foreground">Room ID:</span>
-            <span className="font-mono ml-2 px-2 py-1 rounded bg-zinc-100 dark:bg-zinc-800 select-all">
-              {roomId}
-            </span>
+    <div className="bg-zinc-950 text-white min-h-screen flex flex-col">
+      <Navbar />
+      
+      <main id="main-content" role="main" className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center justify-center" tabIndex="-1">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-5xl"
+        >
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-xl">
+            {/* Room header */}
+            <header className="p-4 md:p-6 border-b border-zinc-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4" aria-label="Room Info">
+              <div className="flex items-center gap-3">
+                <div className="bg-indigo-600/20 rounded-full p-2">
+                  <Users className="h-5 w-5 text-indigo-400" />
+                </div>
+                <div>
+                  <h1 className="text-lg font-medium text-white">Room ID</h1>
+                  <div className="flex items-center">
+                    <code className="font-mono text-sm px-2 py-1 rounded bg-zinc-800 text-zinc-300 select-all">
+                      {roomId}
+                    </code>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      aria-label="Copy Room Link"
+                      className="ml-2 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                      onClick={() => {
+                        navigator.clipboard.writeText(window.location.href);
+                        // Could add a toast notification here
+                      }}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+　　 　 　 　 <div className="flex items-center gap-2 text-sm bg-zinc-800/50 px-3 py-2 rounded-full" aria-label="Connected users">
+                <Users className="h-4 w-4 text-indigo-400" />
+                <span className="font-medium text-zinc-300">Connected:</span>
+                <span className="font-mono text-zinc-300" aria-live="polite">{users.length}</span>
+                <span className="text-zinc-400 hidden md:inline-block">[
+                  {users.map((id, i) => (
+                    <span key={id}>{`User ${i + 1}${i !== users.length - 1 ? ', ' : ''}`}</span>
+                  ))}
+                ]</span>
+              </div>
+            </header>
+
+            {/* Video content */}
+            <section className="aspect-video w-full bg-black relative" aria-label="YouTube Video Player">
+              <div id="yt-player" className="w-full h-full" />
+            </section>
+            
+            {/* Room controls */}
+            <div className="p-4 md:p-6 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+              <div className="text-sm text-zinc-400">
+                <p>All changes are synchronized with everyone in real-time</p>
+              </div>
+              <Button 
+                variant="destructive" 
+                onClick={() => router.push("/")} 
+                aria-label="Leave Room"
+                className="bg-red-600 hover:bg-red-700 flex items-center gap-2"
+              >
+                <LogOut className="h-4 w-4" />
+                Leave Room
+              </Button>
+            </div>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => navigator.clipboard.writeText(window.location.href)}
-          >
-            Copy Room Link
-          </Button>
-        </div>
-        <div className="aspect-video w-full rounded overflow-hidden bg-black">
-          <div id="yt-player" className="w-full h-full" />
-        </div>
-        {/* Show connected users */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span className="font-medium">Connected users:</span>
-          <span className="font-mono">{users.length}</span>
-          <span className="ml-2">[
-            {users.map((id, i) => (
-              <span key={id}>{`User ${i + 1}${i !== users.length - 1 ? ', ' : ''}`}</span>
-            ))}
-          ]</span>
-        </div>
-        {/* Leave Room button */}
-        <Button variant="destructive" onClick={() => router.push("/")}>Leave Room</Button>
-      </div>
-    </main>
+        </motion.div>
+      </main>
+    </div>
   );
 }
