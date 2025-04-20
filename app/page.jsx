@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { HeroSection } from "@/components/hero-section-dark";
 
 import { ArrowRight, Play, Users, Clock, Zap, Lock, Plus, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -126,74 +127,30 @@ export default function Home() {
   return (
     <div className="bg-zinc-950 text-white min-h-screen">
       
-
       {/* Hero section */}
-      <section className="pt-20 pb-24 md:pt-32 md:pb-36">
-        <div className="container px-4 mx-auto">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex-1 max-w-2xl"
-            >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
-                <span className="text-indigo-500">Sync</span> YouTube videos with friends in real-time
-              </h1>
-              <p className="mt-6 text-xl text-zinc-400">
-                Watch YouTube together with perfect synchronization. No accounts, no downloads, just instant video sharing.
-              </p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-6 h-auto font-medium rounded-lg"
-                >
-                  <Link href="/create-room" className="flex items-center gap-2">
-                    Get Started <ArrowRight className="h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-zinc-700 text-white hover:bg-zinc-800 px-8 py-6 h-auto font-medium rounded-lg"
-                >
-                  <Link href="/join-room" className="flex items-center gap-2">
-                    Join Existing Room
-                  </Link>
-                </Button>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex-1 relative"
-            >
-              <div className="relative aspect-video rounded-lg overflow-hidden shadow-xl border border-zinc-800">
-                <Image
-                  src="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?auto=format&fit=crop&w=800&q=80"
-                  alt="People watching videos together"
-                  className="object-cover"
-                  width={600}
-                  height={450}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-80"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-indigo-600 rounded-full p-4 shadow-lg"
-                  >
-                    <Play className="h-8 w-8 text-white fill-white" />
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <HeroSection
+        title="YouTube Watch Parties"
+        subtitle={{
+          regular: "Sync YouTube videos with ",
+          gradient: "friends in real-time",
+        }}
+        description="Watch YouTube together with perfect synchronization. No accounts, no downloads, just instant video sharing."
+        ctaText="Create Room"
+        ctaHref="/create-room"
+        secondaryCtaText="Join Room"
+        secondaryCtaHref="/join-room"
+        bottomImage={{
+          light: "https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?auto=format&fit=crop&w=800&q=80",
+          dark: "https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?auto=format&fit=crop&w=800&q=80",
+        }}
+        gridOptions={{
+          angle: 65,
+          opacity: 0.4,
+          cellSize: 50,
+          lightLineColor: "#6366F1",
+          darkLineColor: "#4F46E5",
+        }}
+      />
 
       {/* Benefits section */}
       <section id="features" className="py-24 bg-zinc-900" aria-label="Features and benefits">
