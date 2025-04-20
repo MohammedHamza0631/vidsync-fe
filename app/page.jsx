@@ -6,7 +6,9 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { HeroSection } from "@/components/hero-section-dark";
 import { FeaturesGrid } from "@/components/features-grid";
-
+import { ButtonColorful } from "@/components/ui/btn-colorful"
+import { ButtonNew } from "@/components/ui/btn"
+import { LucideIcon } from "lucide-react"
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
@@ -69,7 +71,7 @@ export default function Home() {
       
       {/* Hero section */}
       <HeroSection
-        title="YouTube Watch Parties"
+        title="VidSync"
         subtitle={{
           regular: "Sync YouTube videos with ",
           gradient: "friends in real-time",
@@ -80,8 +82,8 @@ export default function Home() {
         secondaryCtaText="Join Room"
         secondaryCtaHref="/join-room"
         bottomImage={{
-          light: "https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?auto=format&fit=crop&w=800&q=80",
-          dark: "https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?auto=format&fit=crop&w=800&q=80",
+          light: "https://images.unsplash.com/photo-1714978444538-9097293e5b20?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bXVsdGlwbGUlMjBwZW9wbGUlMjB3YXRjaGluZyUyMHZpZGVvfGVufDB8fDB8fHww",
+          dark: "https://images.unsplash.com/photo-1714978444538-9097293e5b20?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bXVsdGlwbGUlMjBwZW9wbGUlMjB3YXRjaGluZyUyMHZpZGVvfGVufDB8fDB8fHww",
         }}
         gridOptions={{
           angle: 65,
@@ -149,6 +151,7 @@ export default function Home() {
                   Create Room <ArrowRight className="h-5 w-5" />
                 </Link>
               </Button>
+              
               <Button
                 asChild
                 size="lg"

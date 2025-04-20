@@ -30,7 +30,7 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Links */}
+          {/* Links*/}  
           <div className="space-y-4">
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider">Links</h4>
             <ul className="space-y-2">
@@ -45,17 +45,17 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> 
 
           {/* Social */}
           <div className="space-y-4">
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider">Connect</h4>
             <div className="flex gap-4">
-              <a href="https://github.com" className="text-zinc-400 hover:text-white transition-colors">
+              <a href="https://github.com/MohammedHamza0631" className="text-zinc-400 hover:text-white transition-colors">
                 <Github size={20} />
                 <span className="sr-only">GitHub</span>
               </a>
-              <a href="mailto:contact@vidsync.app" className="text-zinc-400 hover:text-white transition-colors">
+              <a href="mailto:mohammedhamza8726@gmail.com" className="text-zinc-400 hover:text-white transition-colors">
                 <Mail size={20} />
                 <span className="sr-only">Email</span>
               </a>
