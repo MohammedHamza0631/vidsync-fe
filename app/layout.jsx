@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { TubelightNavbar } from "@/components/ui/tubelight-navbar";
 import { Footer } from '@/components/ui/footer';
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,13 +21,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-950 text-white min-h-screen`}
       >
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
         <TubelightNavbar />
         {children}
         <Footer/>
+        </ThemeProvider>
       </body>
     </html>
   );

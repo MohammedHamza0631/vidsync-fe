@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { HeroSectionDemo } from "@/components/hero-demo";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -70,7 +71,8 @@ export default function Home() {
     <div className="bg-zinc-950 text-white min-h-screen">
       
       {/* Hero section */}
-      <HeroSection
+      <HeroSectionDemo/>
+      {/* <HeroSection
         title="VidSync"
         subtitle={{
           regular: "Sync YouTube videos with ",
@@ -89,10 +91,10 @@ export default function Home() {
           angle: 65,
           opacity: 0.4,
           cellSize: 50,
-          lightLineColor: "#6366F1",
-          darkLineColor: "#4F46E5",
+          lightLineColor: "#4a4a4a",
+          darkLineColor: "#2a2a2a",
         }}
-      />
+      /> */}
 
       {/* Features and How It Works combined grid */}
       <FeaturesGrid />
@@ -156,7 +158,7 @@ export default function Home() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-indigo-700/50 bg-indigo-950/50 text-white hover:bg-indigo-900/50 px-8 py-6 h-auto font-medium rounded-lg"
+                className="border-indigo-700/50 bg-indigo-950/50 text-white hover:bg-indigo-900/10 hover:text-white px-8 py-6 h-auto font-medium rounded-lg"
               >
                 <Link href="/join-room">
                   Join Room
