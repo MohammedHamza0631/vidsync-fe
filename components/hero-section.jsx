@@ -46,6 +46,8 @@ const HeroSection = React.forwardRef(
       description = "Sed ut perspiciatis unde omnis iste natus voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.",
       ctaText = "Browse courses",
       ctaHref = "#",
+      secondaryCtaText,
+      secondaryCtaHref,
       bottomImage = {
         light: "https://farmui.vercel.app/dashboard-light.png",
         dark: "https://farmui.vercel.app/dashboard.png",
@@ -75,8 +77,8 @@ const HeroSection = React.forwardRef(
               <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
                 {description}
               </p>
-              <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
-                <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+                <span className="relative inline-block overflow-hidden rounded-full p-[1.5px] w-full sm:w-auto">
                   <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
                   <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white dark:bg-gray-950 text-xs font-medium backdrop-blur-3xl">
                     <a
@@ -87,6 +89,22 @@ const HeroSection = React.forwardRef(
                     </a>
                   </div>
                 </span>
+
+                {secondaryCtaText && (
+                  <span className="relative inline-block overflow-hidden rounded-full p-[1px] w-full sm:w-auto">
+                    <span
+                      className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] opacity-30 bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                    <div
+                      className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white dark:bg-gray-950 text-xs font-medium backdrop-blur-3xl">
+                      <a
+                        href={secondaryCtaHref}
+                        className="inline-flex w-full rounded-full text-center items-center justify-center bg-transparent text-gray-900 dark:text-white border-input border-[1px] border-purple-400/30 hover:bg-purple-400/10 transition-all sm:w-auto py-4 px-10"
+                      >
+                        {secondaryCtaText}
+                      </a>
+                    </div>
+                  </span>
+                )}
               </div>
             </div>
             {bottomImage && (

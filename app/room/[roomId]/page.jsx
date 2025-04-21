@@ -20,7 +20,7 @@ export default function RoomPage() {
   const socketRef            = useRef(null);
   const isSyncing            = useRef(false); // Flag for sync operations
 
-  // 1️⃣ Fetch the room’s videoId (with retry)
+  // 1️⃣ Fetch the room's videoId (with retry)
   useEffect(() => {
     let cancelled = false;
     let attempts = 0;
@@ -180,32 +180,32 @@ export default function RoomPage() {
   if (!videoId) return <div className="h-screen flex items-center justify-center">Room not found.</div>;
 
   return (
-    <div className="bg-zinc-950 text-white min-h-screen flex flex-col">      
-      <main id="main-content" role="main" className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center justify-center" tabIndex="-1">
+    <div className="dark:bg-purple-950/10 bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] bg-opacity-90 text-white min-h-screen flex flex-col">      
+      <main id="main-content" role="main" className="flex-1 container mx-auto px-4 py-10 flex flex-col items-center justify-center" tabIndex="-1">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="w-full max-w-5xl"
         >
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-xl">
+          <div className="bg-zinc-900/50 border border-purple-900/30 rounded-xl overflow-hidden shadow-xl">
             {/* Room header */}
-            <header className="p-4 md:p-6 border-b border-zinc-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4" aria-label="Room Info">
+            <header className="p-4 md:p-6 border-b border-purple-900/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4" aria-label="Room Info">
               <div className="flex items-center gap-3">
-                <div className="bg-indigo-600/20 rounded-full p-2">
-                  <Users className="h-5 w-5 text-indigo-400" />
+                <div className="bg-purple-600/20 rounded-full p-2">
+                  <Users className="h-5 w-5 text-purple-400" />
                 </div>
                 <div>
                   <h1 className="text-lg font-medium text-white">Room ID</h1>
                   <div className="flex items-center">
-                    <code className="font-mono text-sm px-2 py-1 rounded bg-zinc-800 text-zinc-300 select-all">
+                    <code className="font-mono text-sm px-2 py-1 rounded bg-zinc-800/70 text-zinc-300 select-all">
                       {roomId}
                     </code>
                     <Button
                       variant="ghost"
                       size="sm"
                       aria-label="Copy Room Link"
-                      className="ml-2 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                      className="ml-2 text-zinc-400 hover:text-white hover:bg-purple-800/30"
                       onClick={() => {
                         navigator.clipboard.writeText(window.location.href);
                         // Could add a toast notification here
@@ -216,8 +216,8 @@ export default function RoomPage() {
                   </div>
                 </div>
               </div>
-　　 　 　 　 <div className="flex items-center gap-2 text-sm bg-zinc-800/50 px-3 py-2 rounded-full" aria-label="Connected users">
-                <Users className="h-4 w-4 text-indigo-400" />
+　　 　 　 　 <div className="flex items-center gap-2 text-sm bg-zinc-800/30 border border-purple-800/20 px-3 py-2 rounded-full" aria-label="Connected users">
+                <Users className="h-4 w-4 text-purple-400" />
                 <span className="font-medium text-zinc-300">Connected:</span>
                 <span className="font-mono text-zinc-300" aria-live="polite">{users.length}</span>
                 <span className="text-zinc-400 hidden md:inline-block">[
@@ -234,15 +234,15 @@ export default function RoomPage() {
             </section>
             
             {/* Room controls */}
-            <div className="p-4 md:p-6 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-4">
-              <div className="text-sm text-zinc-400">
+            <div className="p-4 md:p-6 border-t border-purple-900/40 flex flex-col sm:flex-row justify-between items-center gap-4">
+              <div className="text-sm text-zinc-300">
                 <p>All changes are synchronized with everyone in real-time</p>
               </div>
               <Button 
                 variant="destructive" 
                 onClick={() => router.push("/")} 
                 aria-label="Leave Room"
-                className="bg-red-600 hover:bg-red-700 flex items-center gap-2"
+                className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white py-3 h-auto font-medium rounded-lg flex items-center gap-2"
               >
                 <LogOut className="h-4 w-4" />
                 Leave Room

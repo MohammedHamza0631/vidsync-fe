@@ -124,13 +124,14 @@ const GridItem = ({
     >
       <div className="relative h-full rounded-2xl border border-zinc-800 p-1.5 md:rounded-3xl">
         <GlowingEffect
-          spread={40}
+          spread={80}
+          blur={0}
           glow={true}
           disabled={false}
           proximity={64}
           variant="default"
           inactiveZone={0.01}
-          borderWidth={1.5}
+          borderWidth={3}
         />
         <div
           className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl bg-zinc-950/50 p-6 md:p-6 dark:shadow-[0px_0px_27px_0px_#2D2D2D]">

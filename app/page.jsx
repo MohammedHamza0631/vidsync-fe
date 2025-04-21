@@ -5,13 +5,14 @@ import { HeroSectionDemo } from "@/components/hero-demo";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { HeroSection } from "@/components/hero-section-dark";
+
 import { FeaturesGrid } from "@/components/features-grid";
 import { ButtonColorful } from "@/components/ui/btn-colorful"
 import { ButtonNew } from "@/components/ui/btn"
 import { LucideIcon } from "lucide-react"
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { GlowingEffectDemoSecond } from "@/components/glowdemo";
 
 // FAQs
 const faqs = [
@@ -72,32 +73,10 @@ export default function Home() {
       
       {/* Hero section */}
       <HeroSectionDemo/>
-      {/* <HeroSection
-        title="VidSync"
-        subtitle={{
-          regular: "Sync YouTube videos with ",
-          gradient: "friends in real-time",
-        }}
-        description="Watch YouTube together with perfect synchronization. No accounts, no downloads, just instant video sharing."
-        ctaText="Create Room"
-        ctaHref="/create-room"
-        secondaryCtaText="Join Room"
-        secondaryCtaHref="/join-room"
-        bottomImage={{
-          light: "https://images.unsplash.com/photo-1714978444538-9097293e5b20?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bXVsdGlwbGUlMjBwZW9wbGUlMjB3YXRjaGluZyUyMHZpZGVvfGVufDB8fDB8fHww",
-          dark: "https://images.unsplash.com/photo-1714978444538-9097293e5b20?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bXVsdGlwbGUlMjBwZW9wbGUlMjB3YXRjaGluZyUyMHZpZGVvfGVufDB8fDB8fHww",
-        }}
-        gridOptions={{
-          angle: 65,
-          opacity: 0.4,
-          cellSize: 50,
-          lightLineColor: "#4a4a4a",
-          darkLineColor: "#2a2a2a",
-        }}
-      /> */}
 
       {/* Features and How It Works combined grid */}
-      <FeaturesGrid />
+      {/* <FeaturesGrid /> */}
+      <GlowingEffectDemoSecond/>
 
       {/* FAQ section */}
       <section id="faq" className="py-24 bg-zinc-950" aria-label="Frequently asked questions">
@@ -130,7 +109,7 @@ export default function Home() {
       </section>
 
       {/* Final CTA section */}
-      <section className="py-24 bg-gradient-to-b from-zinc-950 to-indigo-950">
+      <section className="py-24 bg-gradient-to-b from-zinc-950 to-purple-950">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -147,7 +126,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-6 h-auto font-medium rounded-lg"
+                className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white px-8 py-6 h-auto font-medium rounded-lg"
               >
                 <Link href="/create-room" className="flex items-center gap-2">
                   Create Room <ArrowRight className="h-5 w-5" />
@@ -158,7 +137,7 @@ export default function Home() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-indigo-700/50 bg-indigo-950/50 text-white hover:bg-indigo-900/10 hover:text-white px-8 py-6 h-auto font-medium rounded-lg"
+                className="border-purple-700/50 bg-purple-950/50 text-white hover:bg-purple-900/30 hover:text-white px-8 py-6 h-auto font-medium rounded-lg"
               >
                 <Link href="/join-room">
                   Join Room
