@@ -201,22 +201,36 @@ export default function RoomPage() {
                     <code className="font-mono text-sm px-2 py-1 rounded bg-zinc-800/70 text-zinc-300 select-all">
                       {roomId}
                     </code>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      aria-label="Copy Room Link"
-                      className="ml-2 text-zinc-400 hover:text-white hover:bg-purple-800/30"
-                      onClick={() => {
-                        navigator.clipboard.writeText(window.location.href);
-                        // Could add a toast notification here
-                      }}
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
+                    <div className="relative ml-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        aria-label="Copy Room ID"
+                        className="text-zinc-400 hover:text-white hover:bg-zinc-800 relative group"
+                        onClick={() => {
+                          navigator.clipboard.writeText(roomId);
+                          const tooltip = document.getElementById('copy-tooltip');
+                          if (tooltip) {
+                            tooltip.innerText = 'Copied to clipboard';
+                            setTimeout(() => {
+                              tooltip.innerText = 'Copy';
+                            }, 2000);
+                          }
+                        }}
+                      >
+                        <Copy className="h-4 w-4" />
+                        <div 
+                          id="copy-tooltip"
+                          className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-zinc-800/90 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap"
+                        >
+                          Copy
+                        </div>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
-　　 　 　 　 <div className="flex items-center gap-2 text-sm bg-zinc-800/30 border border-purple-800/20 px-3 py-2 rounded-full" aria-label="Connected users">
+              <div className="flex items-center gap-2 text-sm bg-zinc-800/30 border border-purple-800/20 px-3 py-2 rounded-full" aria-label="Connected users">
                 <Users className="h-4 w-4 text-purple-400" />
                 <span className="font-medium text-zinc-300">Connected:</span>
                 <span className="font-mono text-zinc-300" aria-live="polite">{users.length}</span>

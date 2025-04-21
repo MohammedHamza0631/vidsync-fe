@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Github, Mail, Heart } from "lucide-react";
+import { Github, Mail, Heart, LinkedinIcon } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -51,9 +51,13 @@ export function Footer() {
           <div className="space-y-4">
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider">Connect</h4>
             <div className="flex gap-4">
-              <a href="https://github.com/MohammedHamza0631" className="text-zinc-400 hover:text-white transition-colors">
+              <a target="_blank" href="https://github.com/MohammedHamza0631" className="text-zinc-400 hover:text-white transition-colors">
                 <Github size={20} />
                 <span className="sr-only">GitHub</span>
+              </a>
+              <a target="_blank" href="https://www.linkedin.com/in/mohammedhamza0631/" className="text-zinc-400 hover:text-white transition-colors">
+                <LinkedinIcon size={20} />
+                <span className="sr-only">LinkedIn</span>
               </a>
               <a href="mailto:mohammedhamza8726@gmail.com" className="text-zinc-400 hover:text-white transition-colors">
                 <Mail size={20} />

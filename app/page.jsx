@@ -68,15 +68,35 @@ function FAQ({ question, answer }) {
 export default function Home() {
   const router = useRouter();
 
+  const scrollToFeatures = (e) => {
+    e.preventDefault();
+    document.getElementById('features').scrollIntoView({ 
+      behavior: 'smooth' 
+    });
+  };
+
   return (
     <div className="bg-zinc-950 text-white min-h-screen">
       
       {/* Hero section */}
       <HeroSectionDemo/>
 
-      {/* Features and How It Works combined grid */}
-      {/* <FeaturesGrid /> */}
-      <GlowingEffectDemoSecond/>
+      {/* Features section */}
+      <section id="features" className="py-20">
+        <div className="container px-4 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold">Features</h2>
+            <p className="mt-4 text-lg text-zinc-300">Everything you need for synchronized viewing</p>
+          </motion.div>
+          <GlowingEffectDemoSecond/>
+        </div>
+      </section>
 
       {/* FAQ section */}
       <section id="faq" className="py-24 bg-zinc-950" aria-label="Frequently asked questions">
@@ -143,6 +163,14 @@ export default function Home() {
                   Join Room
                 </Link>
               </Button>
+            </div>
+            <div className="mt-6">
+              <button 
+                onClick={scrollToFeatures}
+                className="text-purple-400 hover:text-purple-300 text-sm font-medium flex items-center gap-1 mx-auto"
+              >
+                Learn more about features <ChevronDown className="h-4 w-4" />
+              </button>
             </div>
           </motion.div>
         </div>
