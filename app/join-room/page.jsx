@@ -23,7 +23,7 @@ export default function JoinRoomPage() {
     }
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:4000/api/room/${id}`);
+      const res = await fetch(`https://vidsync-be.vercel.app/api/room/${id}`);
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || "Room not found.");
