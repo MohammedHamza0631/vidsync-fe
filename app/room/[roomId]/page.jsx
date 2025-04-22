@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Copy, LogOut, Users } from 'lucide-react';
 
-const SOCKET_URL = 'https://vidsync-be.vercel.app';
+const SOCKET_URL = 'https://vidsync-be.onrender.com';
 
 export default function RoomPage() {
   const { roomId }           = useParams();

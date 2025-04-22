@@ -27,7 +27,7 @@ export default function CreateRoomPage() {
 
     setLoading(true);
     try {
-      const res = await fetch('https://vidsync-be.vercel.app/api/create-room', {
+      const res = await fetch('https://vidsync-be.onrender.com/api/create-room', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ videoId }),
