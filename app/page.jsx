@@ -6,10 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
-import { FeaturesGrid } from "@/components/features-grid";
-import { ButtonColorful } from "@/components/ui/btn-colorful"
-import { ButtonNew } from "@/components/ui/btn"
-import { LucideIcon } from "lucide-react"
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { GlowingEffectDemoSecond } from "@/components/glowdemo";
