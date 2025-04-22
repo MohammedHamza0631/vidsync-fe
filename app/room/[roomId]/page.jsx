@@ -1,15 +1,17 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import io from 'socket.io-client';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Copy, LogOut, Users } from 'lucide-react';
 
-const SOCKET_URL = 'https://vidsync-be.onrender.com';
+const SOCKET_URL = 'http://localhost:4000';
 
 export default function RoomPage() {
   const { roomId }           = useParams();
+  const searchParams         = useSearchParams();
+  const yourName             = searchParams.get('name') || 'Anonymous';
   const [videoId, setVideoId] = useState(null);
   const [error, setError]     = useState('');
   const [loading, setLoading] = useState(true);
@@ -93,7 +95,7 @@ export default function RoomPage() {
     const socket = io(SOCKET_URL);
     socketRef.current = socket;
 
-    socket.emit('join-room', { roomId });
+    socket.emit('join-room', { roomId, name: yourName });
     // After joining, request the current user list
     socket.emit('get-users', { roomId });
 
@@ -124,21 +126,9 @@ export default function RoomPage() {
       }
     });
 
-    socket.on('user-joined', ({ userId }) => {
-      setUsers((u) => {
-        // Prevent duplicates
-        if (u.includes(userId)) return u;
-        return [...u, userId];
-      });
-    });
-
-    socket.on('user-left', ({ userId }) => {
-      setUsers((u) => u.filter((id) => id !== userId));
-    });
-
     // On initial join, get all users in the room
-    socket.on('room-users', (userIds) => {
-      setUsers(userIds);
+    socket.on('room-users', (userList) => {
+      setUsers(userList); // userList is [{id, name}, ...]
     });
 
     socket.on('error', (msg) => setError(msg));
@@ -146,7 +136,7 @@ export default function RoomPage() {
     return () => {
       socket.disconnect();
     };
-  }, [videoId]);  // <-- <-- only depends on videoId now
+  }, [videoId, yourName, roomId]);  // Include yourName as a dependency
 
   // 4️⃣ Emit state changes (but only if user-initiated)
   function onPlayerStateChange(event) {
@@ -206,7 +196,7 @@ export default function RoomPage() {
                         variant="ghost"
                         size="sm"
                         aria-label="Copy Room ID"
-                        className="text-zinc-400 hover:text-white hover:bg-zinc-800 relative group"
+                        className="text-zinc-400 hover:text-white hover:bg-purple-800/30 relative group"
                         onClick={() => {
                           navigator.clipboard.writeText(roomId);
                           const tooltip = document.getElementById('copy-tooltip');
@@ -234,11 +224,6 @@ export default function RoomPage() {
                 <Users className="h-4 w-4 text-purple-400" />
                 <span className="font-medium text-zinc-300">Connected:</span>
                 <span className="font-mono text-zinc-300" aria-live="polite">{users.length}</span>
-                <span className="text-zinc-400 hidden md:inline-block">[
-                  {users.map((id, i) => (
-                    <span key={id}>{`User ${i + 1}${i !== users.length - 1 ? ', ' : ''}`}</span>
-                  ))}
-                ]</span>
               </div>
             </header>
 
@@ -247,20 +232,29 @@ export default function RoomPage() {
               <div id="yt-player" className="w-full h-full" />
             </section>
             
-            {/* Room controls */}
-            <div className="p-4 md:p-6 border-t border-purple-900/40 flex flex-col sm:flex-row justify-between items-center gap-4">
-              <div className="text-sm text-zinc-300">
-                <p>All changes are synchronized with everyone in real-time</p>
+            {/* User list and controls */}
+            <div className="p-4 md:p-6 border-t border-purple-900/40">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="text-sm text-zinc-300 space-y-2">
+                  <p className="mb-2">Users in this room:</p>
+                  <ul className="ml-5 list-disc space-y-1">
+                    {users.map((user) => (
+                      <li key={user.id} className="text-zinc-300">
+                        {user.name} {user.name === yourName ? "(you)" : ""}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <Button 
+                  variant="destructive" 
+                  onClick={() => router.push("/")} 
+                  aria-label="Leave Room"
+                  className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white py-3 h-auto font-medium rounded-lg flex items-center gap-2"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Leave Room
+                </Button>
               </div>
-              <Button 
-                variant="destructive" 
-                onClick={() => router.push("/")} 
-                aria-label="Leave Room"
-                className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white py-3 h-auto font-medium rounded-lg flex items-center gap-2"
-              >
-                <LogOut className="h-4 w-4" />
-                Leave Room
-              </Button>
             </div>
           </div>
         </motion.div>

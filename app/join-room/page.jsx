@@ -9,6 +9,7 @@ import Link from "next/link";
 
 export default function JoinRoomPage() {
   const [roomId, setRoomId] = useState("");
+  const [name,   setName  ] = useState('');
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -16,6 +17,12 @@ export default function JoinRoomPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
+
+    if (!name.trim()) {
+      setError('Please enter your name.');
+      return;
+    }
+
     const id = roomId.trim();
     if (!id || id.length < 4 || id.length > 12) {
       setError("Please enter a valid Room ID.");
@@ -23,12 +30,13 @@ export default function JoinRoomPage() {
     }
     setLoading(true);
     try {
-      const res = await fetch(`https://vidsync-be.onrender.com/api/room/${id}`);
+      const res = await fetch(`http://localhost:4000/api/room/${id}`);
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || "Room not found.");
       }
       router.push(`/room/${id}`);
+      router.push(`/room/${id}?name=${encodeURIComponent(name)}`);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -55,6 +63,19 @@ export default function JoinRoomPage() {
           <div className="bg-zinc-900/50 border border-purple-900/30 rounded-xl shadow-xl p-8">
             <form onSubmit={handleSubmit} className="flex flex-col gap-6" aria-label="Join Room Form">
               <div className="space-y-2">
+              <label htmlFor="user-name" className="text-sm font-medium text-zinc-300">Username</label>
+                <Input
+                  id="user-name"
+                  placeholder="Enter a cool username!"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={loading}
+                  required
+                  autoFocus
+                  aria-required="true"
+                  aria-label="Username"
+                  className="bg-zinc-800/70 border-purple-800/30 text-white placeholder:text-zinc-500 focus:ring-purple-500 focus:border-purple-500"
+                />
                 <label htmlFor="roomid-input" className="text-sm font-medium text-zinc-300">Room ID</label>
                 <Input
                   id="roomid-input"
