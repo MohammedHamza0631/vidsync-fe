@@ -74,7 +74,7 @@ const HeroSection = React.forwardRef(
                   {subtitle.gradient}
                 </span>
               </h2>
-              <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+              <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 text-sm md:text-lg">
                 {description}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
