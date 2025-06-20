@@ -107,7 +107,10 @@ export default function CreateRoomPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white py-6 h-auto font-medium rounded-lg w-full flex items-center justify-center gap-2"
+                // variant="cushy"
+                // className="py-6 h-auto font-medium w-full flex items-center justify-center gap-2"
+                variant="cushy"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 h-auto font-medium rounded-full w-full flex items-center justify-center gap-2"
                 aria-label="Create Room"
               >
                 {loading ? 'Creating...' : 'Create Room'}

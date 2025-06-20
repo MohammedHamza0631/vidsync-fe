@@ -125,7 +125,7 @@ export default function Home() {
       </section>
 
       {/* Final CTA section */}
-      <section className="py-24 bg-gradient-to-b from-zinc-950 to-purple-950">
+      <section className="py-24 bg-gradient-to-b from-zinc-950 to-purple-950/40">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -139,10 +139,11 @@ export default function Home() {
               Create a room in seconds and start sharing videos with your friends, no signup required.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
+              {/* <Button
                 asChild
                 size="lg"
-                className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white px-8 py-6 h-auto font-medium rounded-lg"
+                variant="cushy"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 h-auto font-medium rounded-full"
               >
                 <Link href="/create-room" className="flex items-center gap-2">
                   Create Room <ArrowRight className="h-5 w-5" />
@@ -152,13 +153,42 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                variant="outline"
-                className="border-purple-700/50 bg-purple-950/50 text-white hover:bg-purple-900/30 hover:text-white px-8 py-6 h-auto font-medium rounded-lg"
+                variant="cushy"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 h-auto font-medium rounded-full"
               >
                 <Link href="/join-room">
                   Join Room
                 </Link>
-              </Button>
+              </Button> */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+                <span className="relative inline-block overflow-hidden rounded-full p-[1.5px] w-full sm:w-auto">
+                  <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                  <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white dark:bg-gray-950 text-xs font-medium backdrop-blur-3xl">
+                    <a
+                      href="/create-room"
+                      className="inline-flex rounded-full text-center group items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10"
+                    >
+                      Create Room
+                    </a>
+                  </div>
+                </span>
+
+                
+                  <span className="relative inline-block overflow-hidden rounded-full p-[1px] w-full sm:w-auto">
+                    <span
+                      className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] opacity-30 bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                    <div
+                      className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white dark:bg-gray-950 text-xs font-medium backdrop-blur-3xl">
+                      <a
+                        href="/join-room"
+                        className="inline-flex w-full rounded-full text-center items-center justify-center bg-transparent text-gray-900 dark:text-white border-input border-[1px] border-purple-400/30 hover:bg-purple-400/10 transition-all sm:w-auto py-4 px-10"
+                      >
+                        Join Room
+                      </a>
+                    </div>
+                  </span>
+                
+              </div>
             </div>
             <div className="mt-6">
               <button 
